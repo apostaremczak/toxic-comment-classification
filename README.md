@@ -4,7 +4,7 @@ Identify and classify toxic online comments.
 
 **Deadline:** 07.06.2020, 23:59
 
-## Requirements
+## Project requirements
 
 * dataset - any
 * score - accuracy
@@ -31,6 +31,21 @@ by Jigsaw/Conversation AI.
 >* obscene
 >* threat
 >* insult
-> * identity_hate
+>* identity_hate
 
 >You must create a model which predicts a probability of each type of toxicity for each comment.
+
+## Technical requirements
+
+This project was written in Python 3.8. To create Conda environment with all 
+the projects's requirements, run:
+
+```
+conda env create -f conda_environment.yml
+```
+
+Then proceed to activate the environment before using the classificator:
+
+```
+conda activate toxic
+```
