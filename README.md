@@ -37,15 +37,10 @@ by Jigsaw/Conversation AI.
 
 ## Technical requirements
 
-This project was written in Python 3.8. To create Conda environment with all 
-the projects's requirements, run:
+This project was written in Python 3.8. To install all required dependencies, run
 
 ```
-conda env create -f conda_environment.yml
+pip install -r requirements.txt
 ```
 
-Then proceed to activate the environment before using the classificator:
-
-```
-conda activate toxic
-```
+in your virtual environment.
