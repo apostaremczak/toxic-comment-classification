@@ -1,0 +1,3 @@
+DATA_DIR = "data/"
+MAX_SEQ_LENGTH = 256
+NUM_CLASSES = 2
