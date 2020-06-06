@@ -1,4 +1,3 @@
-import logging
 import numpy as np
 import pandas as pd
 from collections import Counter
@@ -7,7 +6,7 @@ from tqdm import tqdm
 from typing import Tuple
 from transformers import PreTrainedTokenizer
 
-from .constants import DATA_DIR, MAX_SEQ_LENGTH, NUM_CLASSES
+from constants import DATA_DIR, MAX_SEQ_LENGTH
 
 TOXIC_LABELS = ("toxic", "severe_toxic", "obscene", "threat", "insult",
                 "identity_hate")
@@ -47,15 +46,14 @@ def _balance_classes(binarized_df: pd.DataFrame,
     total_count = neutral_count + toxic_count
     toxic_frac = toxic_count / total_count
 
-    logging.info(f"Total dataset size: {total_count:,}")
-    logging.info(f"Class distribution:"
-                 f"Neutral = {1.0 - toxic_frac:.2%}, "
-                 f"Toxic = {toxic_frac:.2%}")
+    print(f"Total dataset size: {total_count:,}")
+    print(f"Class distribution:"
+          f"Neutral = {1.0 - toxic_frac:.2%}, Toxic = {toxic_frac:.2%}")
 
     return comments.squeeze(), labels
 
 
-def load_training_data(data_dir: str = DATA_DIR + "/raw",
+def load_training_data(data_dir: str = DATA_DIR + "raw",
                        translated_sample_count: int = 30000,
                        random_state: int = 0) -> Tuple[np.ndarray, np.ndarray]:
     # Full training dataset from Kaggle
@@ -92,7 +90,7 @@ def tokenize_comments(
     """
     input_ids, input_masks = [], []
 
-    for comment in tqdm(comments):
+    for comment in tqdm(comments, desc="Tokenizing comments"):
         inputs = tokenizer.encode_plus(
             comment,
             add_special_tokens=True,
@@ -107,5 +105,3 @@ def tokenize_comments(
     input_masks = np.asarray(input_masks, dtype='int32')
 
     return input_ids, input_masks
-
-

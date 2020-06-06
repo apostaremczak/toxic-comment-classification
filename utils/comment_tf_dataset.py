@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from .constants import MAX_SEQ_LENGTH, NUM_CLASSES
+from constants import MAX_SEQ_LENGTH, NUM_CLASSES
 
 FEATURE_DESCRIPTION = {
     'input_token': tf.io.FixedLenFeature([MAX_SEQ_LENGTH], tf.int64),

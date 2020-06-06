@@ -2,7 +2,7 @@ import tensorflow as tf
 from transformers import DistilBertConfig, DistilBertTokenizer, \
     TFDistilBertModel
 
-from .config import CommentClassifierConfig
+from model.config import CommentClassifierConfig
 from utils.constants import MAX_SEQ_LENGTH, NUM_CLASSES
 
 MODEL_NAME = "distilbert-base-uncased"

@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
-from .constants import NUM_CLASSES
+from constants import NUM_CLASSES
 
 
 def _int64_feature(value: np.ndarray) -> tf.train.Feature:
@@ -23,8 +23,10 @@ def create_data_record(inputs: np.ndarray,
     one_hot_labels = tf.keras.utils.to_categorical(labels,
                                                    num_classes=NUM_CLASSES)
 
-    with tf.io.TFRecordWriter(f"{output_file}.tfrecord") as record_writer:
-        for (i, comment_id), mask in tqdm(zip(enumerate(inputs), masks)):
+    output_file = f"{output_file}.tfrecord"
+    with tf.io.TFRecordWriter(output_file) as record_writer:
+        for (i, comment_id), mask in tqdm(zip(enumerate(inputs), masks),
+                                          desc=f"Saving to {output_file}"):
             # Create a Feature from each comment and save it to the file
             feature = {
                 "input_token": _int64_feature(comment_id),
