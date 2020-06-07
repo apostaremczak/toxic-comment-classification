@@ -45,6 +45,7 @@ def save_predictions(model_predictions: np.ndarray,
     # Assign classes with maximum probability
     predicted_classes = np.argmax(model_predictions, axis=1)
     df = pd.DataFrame(data={"predictions": predicted_classes})
+    print(f"Saving predictions to {output_file_name}...")
     df.to_csv(output_file_name, sep=',', index=False, header=False)
 
 
