@@ -70,7 +70,9 @@ def create_model(model_config: CommentClassifierConfig,
     for layer in model.layers[:3]:
         layer.trainable = False
 
+    # Load weights from a checkpoint, but allow partial matching
+    # (e.g. due to a change in the optimizer)
     if saved_weights_path is not None:
-        model.load_weights(saved_weights_path)
+        model.load_weights(saved_weights_path).expect_partial()
 
     return model
