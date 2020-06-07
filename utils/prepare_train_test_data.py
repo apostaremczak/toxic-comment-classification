@@ -4,7 +4,7 @@ from comment_tf_record import create_data_record
 from preprocessing import load_training_data, tokenize_comments
 from model.classifier import get_tokenizer
 
-TEST_FRACTION = 0.1
+TEST_FRACTION = 0.01
 
 
 def main():
