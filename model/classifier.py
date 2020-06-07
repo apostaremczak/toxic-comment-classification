@@ -8,22 +8,24 @@ from utils.constants import MAX_SEQ_LENGTH, NUM_CLASSES
 MODEL_NAME = "distilbert-base-uncased"
 
 
-def get_tokenizer() -> DistilBertTokenizer:
+def get_tokenizer(max_seq_length: int = MAX_SEQ_LENGTH) -> DistilBertTokenizer:
     return DistilBertTokenizer.from_pretrained(
         MODEL_NAME,
         do_lower_case=True,
-        max_length=MAX_SEQ_LENGTH,
+        max_length=max_seq_length,
         pad_to_max_length=True,
         add_special_tokens=True
     )
 
 
 def create_model(model_config: CommentClassifierConfig,
-                 saved_weights_path: str = None) -> tf.keras.Model:
+                 saved_weights_path: str = None,
+                 max_seq_length: int = MAX_SEQ_LENGTH) -> tf.keras.Model:
     """
     :param model_config:       CommentClassifierConfig
     :param saved_weights_path: If defined, model weights will be loaded
                                from the provided checkpoint path
+    :param max_seq_length:     Maximum length of the tokenized input to BERT
     :return:
         Model for text classification using DistilBert transformers
     """
@@ -36,9 +38,9 @@ def create_model(model_config: CommentClassifierConfig,
     transformer_model = TFDistilBertModel.from_pretrained(MODEL_NAME,
                                                           config=bert_config)
 
-    input_ids_in = tf.keras.layers.Input(shape=(MAX_SEQ_LENGTH,),
+    input_ids_in = tf.keras.layers.Input(shape=(max_seq_length,),
                                          name='input_token', dtype='int32')
-    input_masks_in = tf.keras.layers.Input(shape=(MAX_SEQ_LENGTH,),
+    input_masks_in = tf.keras.layers.Input(shape=(max_seq_length,),
                                            name='masked_token', dtype='int32')
 
     embedding_layer = transformer_model(input_ids_in,
