@@ -5,7 +5,7 @@ from dataclasses import dataclass
 class CommentClassifierConfig:
     bert_dropout: float = 0.2
     bert_attention_dropout: float = 0.2
-    lstm_units: int = 20
+    lstm_units: int = 50
     lstm_dropout: float = 0.2
     lstm_recurrent_dropout: float = 0.2
     hidden_layer_dim: int = 50
