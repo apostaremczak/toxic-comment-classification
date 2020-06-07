@@ -29,10 +29,13 @@ def get_probability_predictions(input_ids, mask_ids) -> np.ndarray:
         }
     }
 
+    print("Sending request to TF Server")
     response = requests.post(SERVER_URL, json=data)
 
     if not response.ok:
         raise RuntimeError(f"Failed to submit data due to {response.reason}")
+    else:
+        print("Successfully received predictions")
 
     return np.array(response.json()["outputs"])
 
