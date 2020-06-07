@@ -1,0 +1,4 @@
+"id","comment_text","toxic","severe_toxic","obscene","threat","insult","identity_hate"
+"001ffdcc3e7fb49c","Awesome! Neutral comment!",0,0,0,0,0,0
+"0020e7119b96eeeb","Boo!",1,1,1,0,1,0
+"0020fd96ed3b8c8b","So toxic",1,0,1,0,1,0
