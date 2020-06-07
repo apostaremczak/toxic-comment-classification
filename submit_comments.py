@@ -11,7 +11,7 @@ from typing import Tuple
 from model.classifier import get_tokenizer
 from utils.preprocessing import tokenize_comments
 
-SERVER_URL = "104.248.37.249:8051"
+SERVER_URL = "http://104.248.37.249:8051"
 
 
 def preprocess_input(input_file_path: str) -> Tuple[np.ndarray, np.ndarray]:
