@@ -2,7 +2,6 @@
 Script for submitting a CSV file with comments to the classifier
 """
 import argparse
-import json
 import numpy as np
 import pandas as pd
 import requests
@@ -11,7 +10,7 @@ from typing import Tuple
 from model.classifier import get_tokenizer
 from utils.preprocessing import tokenize_comments
 
-SERVER_URL = "http://104.248.37.249:8051"
+SERVER_URL = "http://104.248.37.249:8501/v1/models/classifier:predict"
 
 
 def preprocess_input(input_file_path: str) -> Tuple[np.ndarray, np.ndarray]:
@@ -20,27 +19,29 @@ def preprocess_input(input_file_path: str) -> Tuple[np.ndarray, np.ndarray]:
     return tokenize_comments(comments, tokenizer)
 
 
-def get_predictions(input_ids, mask_ids):
+def get_probability_predictions(input_ids, mask_ids) -> np.ndarray:
     # Convert input data into appropriate JSON objects
     data = {
-        "signature_name": "predict",
+        "signature_name": "serving_default",
         "inputs": {
             "input_token": input_ids.tolist(),
             "masked_token": mask_ids.tolist()
         }
     }
 
-    prediction_url = f"{SERVER_URL}/v1/models/classifier"
-    response = requests.post(prediction_url, json=data)
+    response = requests.post(SERVER_URL, json=data)
 
     if not response.ok:
         raise RuntimeError(f"Failed to submit data due to {response.reason}")
 
-    return response.json()["outputs"]
+    return np.array(response.json()["outputs"])
 
 
-def save_predictions(predictions, output_file_name):
-    df = pd.DataFrame(data={"predictions": predictions})
+def save_predictions(model_predictions: np.ndarray,
+                     output_file_name: str):
+    # Assign classes with maximum probability
+    predicted_classes = np.argmax(model_predictions, axis=1)
+    df = pd.DataFrame(data={"predictions": predicted_classes})
     df.to_csv(output_file_name, sep=',', index=False, header=False)
 
 
@@ -61,5 +62,5 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     tokenized = preprocess_input(args.input_file)
-    predictions = get_predictions(*tokenized)
+    predictions = get_probability_predictions(*tokenized)
     save_predictions(predictions, args.output_file)
