@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   classifier:
-    image: 'tensorflow/serving:latest-devel'
+    image: 'tensorflow/serving:latest'
     ports:
       # Port 8500 exposed for gRPC
       - "8500:8500"
