@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+  classifier:
+    image: 'tensorflow/serving:latest-devel'
+    ports:
+      # Port 8500 exposed for gRPC
+      - "8500:8500"
+      # Port 8501 exposed for the REST API
+      - '8501:8501'
+    volumes:
+      - './models:/models'
+    command:
+      - '--model_config_file=/models/models.config'
+      - '--model_config_file_poll_wait_seconds=60'
+    tty: true
+    restart: on-failure
