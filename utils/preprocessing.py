@@ -101,7 +101,7 @@ def tokenize_comments(
         input_ids.append(inputs["input_ids"])
         input_masks.append(inputs["attention_mask"])
 
-    input_ids = np.asarray(input_ids, dtype='int32')
-    input_masks = np.asarray(input_masks, dtype='int32')
+    input_ids = np.asarray(input_ids, dtype='int64')
+    input_masks = np.asarray(input_masks, dtype='int64')
 
     return input_ids, input_masks
