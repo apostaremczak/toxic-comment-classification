@@ -6,7 +6,7 @@ from tqdm import tqdm
 from typing import Tuple
 from transformers import PreTrainedTokenizer
 
-from constants import DATA_DIR, MAX_SEQ_LENGTH
+from utils.constants import DATA_DIR, MAX_SEQ_LENGTH
 
 TOXIC_LABELS = ("toxic", "severe_toxic", "obscene", "threat", "insult",
                 "identity_hate")
