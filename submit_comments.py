@@ -10,7 +10,7 @@ from typing import Tuple
 from model.classifier import get_tokenizer
 from utils.preprocessing import tokenize_comments
 
-SERVER_URL = "http://104.248.37.249:8501/v1/models/classifier:predict"
+SERVER_URL = "http://159.65.89.103:8501/v1/models/classifier:predict"
 
 
 def preprocess_input(input_file_path: str) -> Tuple[np.ndarray, np.ndarray]:
