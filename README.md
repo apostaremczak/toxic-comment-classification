@@ -2,18 +2,6 @@
 
 Identify and classify toxic online comments.
 
-## Project requirements
-
-* dataset - any
-* binary classification (neutral, toxic)
-* score - accuracy
-* trained model should be hosted using `tf.serving`
-* script for submitting data to a hosted classification service
-* instruction on submitting test data
-
-### Data format
-
-Test data will be sent as a CSV file, with each sentence starting on a new line.
 
 ## Dataset
 
@@ -43,3 +31,30 @@ pip install -r requirements.txt
 ```
 
 in your virtual environment.
+
+
+## Classifying new data
+
+In order run a prediction on the classifier, use `submit_comments.py`.
+
+```
+usage: submit_comments.py [-h] input_file output_file
+
+Submit text data to a toxic comment classifier
+
+positional arguments:
+  input_file   Path to a CSV file with input data; Each comment should be on a separate line, and the file only one column with no header
+  output_file  Path to a CSV file where the model's predictions will be stored
+
+optional arguments:
+  -h, --help   show this help message and exit
+```
+
+Exemplary use:
+```
+python3 submit_comments.py example_submission.csv example_output.csv
+```
+
+### Data format
+
+Test data must be sent as a CSV file, with each sentence starting on a new line.
