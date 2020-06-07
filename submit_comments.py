@@ -23,15 +23,14 @@ def preprocess_input(input_file_path: str) -> Tuple[np.ndarray, np.ndarray]:
 def get_predictions(input_ids, mask_ids):
     # Convert input data into appropriate JSON objects
     data = {
-        "signature_name": "serving_default",
+        "signature_name": "predict",
         "inputs": {
             "input_token": input_ids.tolist(),
             "masked_token": mask_ids.tolist()
         }
     }
-    prediction_url = f"{SERVER_URL}/v1/models/classifier:predict"
-    print(json.dumps(data))
 
+    prediction_url = f"{SERVER_URL}/v1/models/classifier"
     response = requests.post(prediction_url, json=data)
 
     if not response.ok:
