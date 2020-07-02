@@ -13,6 +13,5 @@ services:
     command:
       - '--model_config_file=/models/models.config'
       - '--model_config_file_poll_wait_seconds=300'
-      - '--rest_api_timeout_in_ms=30000'
     tty: true
     restart: on-failure
